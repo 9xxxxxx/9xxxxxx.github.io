@@ -4,6 +4,7 @@ import { formatDate } from "@/lib/utils";
 import { Home as HomeIcon, Search, Tag, User, Briefcase, BookOpen, UserCircle2 } from "lucide-react";
 import { RightNav } from "@/components/RightNav";
 import { SocialSidebar } from "@/components/SocialSidebar";
+import { ModeToggle } from "@/components/ThemeToggle";
 
 export const metadata = {
   title: "技术博客 | Garry-9xxxxxx",
@@ -45,6 +46,10 @@ export default function BlogPage() {
     <div className="min-h-screen bg-background text-foreground relative transition-colors duration-300">
       <SocialSidebar />
       <RightNav navItems={navItems} />
+      
+      <div className="fixed top-5 right-5 z-[5000]">
+          <ModeToggle />
+      </div>
 
       {/* Header Section */}
       <header className="relative py-24 px-6 text-center bg-slate-50 dark:bg-slate-900/50">

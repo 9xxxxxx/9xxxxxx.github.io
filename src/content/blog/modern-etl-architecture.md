@@ -2,7 +2,7 @@
 title: "从 ETL 到 ELT：现代数据仓库架构解析"
 description: "随着云计算的普及，传统的数据集成模式正在发生变革。本文深入探讨 ETL 与 ELT 的区别及其适用场景。"
 date: "2026-02-01"
-image: "https://images.unsplash.com/photo-1558494949-ef010caca4ad?q=80&w=800"
+image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800"
 tags: ["ETL", "数据架构", "Data Warehouse"]
 ---
 

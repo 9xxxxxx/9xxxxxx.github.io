@@ -6,6 +6,7 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import { notFound } from "next/navigation";
 import { formatDate } from "@/lib/utils";
+import { ModeToggle } from "@/components/ThemeToggle";
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
@@ -66,6 +67,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     <div className="min-h-screen bg-background text-foreground relative transition-colors duration-300">
       <SocialSidebar />
       <RightNav navItems={navItems} />
+
+      <div className="fixed top-5 right-5 z-[5000]">
+          <ModeToggle />
+      </div>
 
       <main className="max-w-4xl mx-auto px-6 pt-32 pb-24">
         {/* Back Link */}
