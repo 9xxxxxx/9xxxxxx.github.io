@@ -3,7 +3,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Modern Portfolio",
+  title: "Garry-9xxxxxx",
   description: "Built with Next.js and Tailwind CSS",
 };
 
