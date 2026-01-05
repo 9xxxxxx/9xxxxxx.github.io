@@ -59,14 +59,11 @@ function Footer() {
         <h1 className="heading lg:max-w-[45vw] text-center text-3xl font-bold text-foreground mb-5">
           准备好让您的数据 <span className="text-primary">创造更大价值了吗？</span>
         </h1>
-        <p className="text-muted-foreground md:mt-10 my-5 text-center">
-          立即联系我，探讨我如何协助您实现业务目标。
-        </p>
         <a href="mailto:huangqiannb@gmail.com">
           <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background">
             <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#0891b2_0%,#22d3ee_50%,#0891b2_100%)]" />
             <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 dark:bg-slate-900 px-8 py-1 text-sm font-medium text-white backdrop-blur-3xl">
-              联系我
+              Contact Me
             </span>
           </button>
         </a>
