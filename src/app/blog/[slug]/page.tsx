@@ -94,7 +94,11 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             {post.title}
           </h1>
           <div className="flex items-center gap-4 text-muted-foreground">
-            <div className="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800" />
+            <img 
+              src="https://github.com/9xxxxxx.png" 
+              alt="Garry-9xxxxxx" 
+              className="w-10 h-10 rounded-full border border-border shadow-sm"
+            />
             <div>
               <p className="text-sm font-bold text-foreground">Garry-9xxxxxx</p>
               <p className="text-xs">{formatDate(post.date)} • 5 min read</p>
