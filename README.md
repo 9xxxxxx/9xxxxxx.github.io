@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 9xxxxxx.github.io
 
-## Getting Started
+欢迎来到我的个人门户！这是一个基于 **Next.js 15** 和 **Tailwind CSS v4** 构建的高性能现代化个人网站，集成了个人介绍、项目展示以及技术博客。
 
-First, run the development server:
+[**🌐 访问我的主页**](https://9xxxxxx.github.io)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ 核心特性
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 🎨 **现代化 UI/UX**: 使用 Tailwind CSS v4 和 Framer Motion 打造丝滑的视觉体验。
+- ⚡ **卓越性能**: 基于 Next.js 15 App Router 构建，提供极速的加载速度。
+- 🍱 **Bento Grid 布局**: 采用简洁高效的多维矩阵布局展示核心内容。
+- 📝 **动态博客**: 基于 Markdown 的轻量级博客系统，记录技术成长。
+- 📱 **全平台适配**: 完美兼容从移动端到桌面端的各种显示设备。
+- 🌙 **深色模式**: 内置自适应主题切换，保护视力且美观。
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ 技术栈
 
-## Learn More
+- **框架**: [Next.js 15](https://nextjs.org/) (App Router)
+- **样式**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **动画**: [Framer Motion](https://www.framer.com/motion/)
+- **组件库**: [Lucide React](https://lucide.dev/) & Aceternity UI 原理
+- **字体**: [Geist Sans](https://vercel.com/font)
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 快速开始
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 环境准备
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Node.js 20+
+- npm / yarn / pnpm
 
-## Deploy on Vercel
+### 本地运行
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. 克隆仓库:
+   ```bash
+   git clone https://github.com/9xxxxxx/9xxxxxx.github.io.git
+   cd 9xxxxxx.github.io
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. 安装依赖:
+   ```bash
+   npm install
+   ```
+
+3. 启动开发服务器:
+   ```bash
+   npm run dev
+   ```
+
+访问 [http://localhost:3000](http://localhost:3000) 预览效果。
+
+## 📦 部署方案
+
+本项目通过 **GitHub Actions** 自动化部署至 **GitHub Pages**。
+任何合并到 `main` 分支的代码都会自动触发构建并更新线上站点。
+
+---
+
+## 📄 许可证
+
+本项目基于 MIT 许可证开源。
+
+---
+Created with ❤️ by [9xxxxxx](https://github.com/9xxxxxx)
