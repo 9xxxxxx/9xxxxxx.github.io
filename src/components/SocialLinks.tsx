@@ -23,7 +23,7 @@ export const SocialLinks = () => {
         <Linkedin className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
       </Link>
       <Link 
-        href="mailto:example@gmail.com" 
+        href="mailto:huangqiannb@gmail.com" 
         className="p-3 rounded-full bg-card border border-border shadow-sm hover:scale-110 hover:border-primary transition-all duration-200 group"
         aria-label="Email"
       >

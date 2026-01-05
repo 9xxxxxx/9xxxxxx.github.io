@@ -12,7 +12,7 @@ export const SocialSidebar = () => {
       <Link href="https://linkedin.com" target="_blank" className="p-3 rounded-full bg-card border border-border shadow-sm hover:scale-110 transition-transform duration-200 group">
         <Linkedin className="w-5 h-5 text-muted-foreground group-hover:text-primary" />
       </Link>
-      <Link href="mailto:example@gmail.com" className="p-3 rounded-full bg-card border border-border shadow-sm hover:scale-110 transition-transform duration-200 group">
+      <Link href="mailto:huangqiannb@gmail.com" className="p-3 rounded-full bg-card border border-border shadow-sm hover:scale-110 transition-transform duration-200 group">
         <Mail className="w-5 h-5 text-muted-foreground group-hover:text-primary" />
       </Link>
       <div className="h-20 w-[1px] bg-gradient-to-b from-border to-transparent"></div>
