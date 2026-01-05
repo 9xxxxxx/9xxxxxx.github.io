@@ -19,7 +19,7 @@ export default function RootLayout({
   const navItems = [
     {
       name: "首页",
-      link: "/", // 统一使用绝对路径，RightNav 会处理锚点
+      link: "#home", // Changed from / to #home
       icon: <HomeIcon className="h-4 w-4" />,
     },
     {

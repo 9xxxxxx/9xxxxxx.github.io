@@ -54,18 +54,20 @@ export const RightNav = ({
         // 1. 如果是页面内锚点，判断 activeSection
         // 2. 如果是独立路径（如 /blog），判断 pathname 是否匹配
         const isAnchor = item.link.startsWith("#");
+        const href = isAnchor && pathname !== "/" ? `/${item.link}` : item.link;
+        
         const isActive = isAnchor 
             ? activeSection === item.link.substring(1)
             : pathname.startsWith(item.link) && item.link !== "/";
         
-        // 特殊处理首页图标的高亮
-        const isHomeActive = item.link === "/" && pathname === "/" && activeSection === "home";
-        const finalActive = isActive || (item.link === "#home" && activeSection === "home") || isHomeActive;
+        // 特殊处理首页图标的高亮：如果没有 activeSection 且在首页，默认高亮第一个（首页）
+        const isFirstItem = idx === 0;
+        const finalActive = isActive || (isFirstItem && pathname === "/" && (!activeSection || activeSection === "home"));
 
         return (
           <Link
             key={`link=${idx}`}
-            href={item.link}
+            href={href}
             className="relative group flex items-center justify-end gap-3 p-2"
           >
             <span 

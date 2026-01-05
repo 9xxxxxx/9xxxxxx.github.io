@@ -11,7 +11,7 @@ import { Home as HomeIcon, User, Briefcase, BookOpen, UserCircle2 } from "lucide
 
 export default function Home() {
   return (
-    <main className="relative bg-background flex flex-col overflow-y-auto h-screen w-full transition-colors duration-300 scroll-snap-y-mandatory scroll-smooth">
+    <main className="relative bg-background flex flex-col w-full transition-colors duration-300 scroll-smooth">
       <div className="w-full">
         {/* Section 1: Hero */}
         <section id="home" className="snap-section">
