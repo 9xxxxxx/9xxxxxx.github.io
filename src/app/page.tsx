@@ -3,7 +3,7 @@ import { FloatingNav } from "@/components/ui/floating-navbar";
 import { Hero } from "@/components/Hero";
 import { Grid } from "@/components/Grid";
 import { Projects } from "@/components/Projects";
-import { SocialLinks } from "@/components/SocialLinks";
+import { SocialSidebar } from "@/components/SocialSidebar";
 import { BackToTop } from "@/components/BackToTop";
 import { ModeToggle } from "@/components/ThemeToggle";
 import { Home as HomeIcon, User, Briefcase, BookOpen } from "lucide-react";
@@ -35,14 +35,14 @@ export default function Home() {
   return (
     <main className="relative bg-background flex flex-col overflow-hidden min-h-screen transition-colors duration-300">
       <div className="w-full">
-        <FloatingNav navItems={navItems} />
+        <SocialSidebar />
         
         <div className="fixed top-5 right-5 z-[5000]">
             <ModeToggle />
         </div>
 
         <Hero />
-        <SocialLinks />
+        <FloatingNav navItems={navItems} />
         <Grid />
         <Projects />
         <Footer />
