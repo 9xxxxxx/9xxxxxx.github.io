@@ -7,12 +7,14 @@ import { SparklesCore } from "@/components/ui/sparkles";
 export function Hero() {
   return (
     <div className="h-[40rem] w-full flex md:items-center md:justify-center bg-background dark:bg-slate-950/[0.9] antialiased bg-grid-white/[0.02] relative overflow-hidden">
+      {/* 左侧聚光灯：射向右下（中心） */}
       <Spotlight
-        className="-top-40 left-0 md:left-60 md:-top-20"
+        className="-top-40 -left-10 md:-left-32 md:-top-20 h-screen"
         fill="#0891b2"
       />
+      {/* 右侧聚光灯：水平翻转，射向左下（中心） */}
       <Spotlight
-        className="top-10 left-full h-[80vh] w-[50vw]"
+        className="h-[80vh] w-[50vw] top-10 left-auto right-[-10%] md:right-[-5%] transform scale-x-[-1]"
         fill="#22d3ee"
       />
       
