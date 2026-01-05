@@ -11,40 +11,33 @@ import { Home as HomeIcon, User, Briefcase, BookOpen } from "lucide-react";
 export default function Home() {
   const navItems = [
     {
-      name: "Home",
+      name: "首页",
       link: "/",
       icon: <HomeIcon className="h-4 w-4 text-neutral-500 dark:text-white" />,
     },
     {
-      name: "Skills",
+      name: "技能",
       link: "#skills",
       icon: <User className="h-4 w-4 text-neutral-500 dark:text-white" />,
     },
     {
-      name: "Projects",
+      name: "项目",
       link: "#projects",
       icon: <Briefcase className="h-4 w-4 text-neutral-500 dark:text-white" />,
     },
     {
-      name: "Blog",
+      name: "博客",
       link: "/blog",
       icon: <BookOpen className="h-4 w-4 text-neutral-500 dark:text-white" />,
     },
   ];
 
   return (
-    <main className="relative bg-white dark:bg-black flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5 transition-colors duration-300">
-      <div className="max-w-7xl w-full">
+    <main className="relative bg-background flex flex-col overflow-hidden min-h-screen transition-colors duration-300">
+      <div className="w-full">
         <FloatingNav navItems={navItems} />
         <SocialSidebar />
         
-        {/* Theme Toggle positioned absolute on top right for easy access on mobile/desktop if floating nav is hidden, 
-            but we can also integrate it into the navbar if we edit that component. 
-            For now, let's keep it separate or integrated. 
-            Actually, the best place is IN the Floating Navbar. 
-            I will inject it via a wrapper or assume FloatingNav is customizable.
-            Wait, FloatingNav is strict. I'll place it fixed top-right for now.
-        */}
         <div className="fixed top-5 right-5 z-[5000]">
             <ModeToggle />
         </div>
@@ -61,26 +54,26 @@ export default function Home() {
 
 function Footer() {
   return (
-    <footer className="w-full pt-20 pb-10" id="contact">
+    <footer className="w-full pt-20 pb-10 px-4" id="contact">
       <div className="flex flex-col items-center">
-        <h1 className="heading lg:max-w-[45vw] text-center text-3xl font-bold text-neutral-800 dark:text-white mb-5">
-          Ready to take your data <span className="text-purple-500">to the next level?</span>
+        <h1 className="heading lg:max-w-[45vw] text-center text-3xl font-bold text-foreground mb-5">
+          准备好让您的数据 <span className="text-primary">创造更大价值了吗？</span>
         </h1>
-        <p className="text-neutral-600 dark:text-neutral-300 md:mt-10 my-5 text-center">
-          Reach out to me today and let&apos;s discuss how I can help you achieve your goals.
+        <p className="text-muted-foreground md:mt-10 my-5 text-center">
+          立即联系我，探讨我如何协助您实现业务目标。
         </p>
         <a href="mailto:contact@example.com">
-          <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
-            <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-            <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-8 py-1 text-sm font-medium text-white backdrop-blur-3xl">
-              Contact Me
+          <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background">
+            <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#0891b2_0%,#22d3ee_50%,#0891b2_100%)]" />
+            <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 dark:bg-slate-900 px-8 py-1 text-sm font-medium text-white backdrop-blur-3xl">
+              联系我
             </span>
           </button>
         </a>
       </div>
-      <div className="flex mt-16 md:flex-row flex-col justify-between items-center text-neutral-500 dark:text-neutral-400 text-sm">
+      <div className="flex mt-16 md:flex-row flex-col justify-between items-center text-muted-foreground text-sm">
         <p className="md:text-base text-sm md:font-normal font-light">
-          Copyright © 2024 Data Analyst
+          版权所有 © 2026 数据分析师
         </p>
       </div>
     </footer>

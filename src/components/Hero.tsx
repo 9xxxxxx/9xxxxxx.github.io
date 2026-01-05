@@ -1,20 +1,42 @@
+"use client";
 import React from "react";
 import { Spotlight } from "@/components/ui/Spotlight";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { SparklesCore } from "@/components/ui/sparkles";
 
 export function Hero() {
   return (
-    <div className="h-[40rem] w-full rounded-md flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
+    <div className="h-[40rem] w-full flex md:items-center md:justify-center bg-background dark:bg-slate-950/[0.9] antialiased bg-grid-white/[0.02] relative overflow-hidden">
       <Spotlight
         className="-top-40 left-0 md:left-60 md:-top-20"
-        fill="white"
+        fill="#0891b2"
       />
-      <div className=" p-4 max-w-7xl  mx-auto relative z-10  w-full pt-20 md:pt-0">
-        <h1 className="text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 bg-opacity-50">
-          Data Driven. <br /> Insight Focused.
-        </h1>
-        <p className="mt-4 font-normal text-base text-neutral-300 max-w-lg text-center mx-auto">
-          Transforming raw data into actionable business intelligence. 
-          Specializing in Python, SQL, and Advanced Analytics.
+      <Spotlight
+        className="top-10 left-full h-[80vh] w-[50vw]"
+        fill="#22d3ee"
+      />
+      
+      {/* Sparkles Background */}
+      <div className="w-full absolute inset-0 h-full">
+        <SparklesCore
+          id="tsparticlesfullpage"
+          background="transparent"
+          minSize={0.6}
+          maxSize={1.4}
+          particleDensity={100}
+          className="w-full h-full"
+          particleColor="#0891b2"
+        />
+      </div>
+
+      <div className="p-4 max-w-7xl mx-auto relative z-10 w-full pt-20 md:pt-0">
+        <TextGenerateEffect
+          words="数据驱动，洞见未来。"
+          className="text-center text-4xl md:text-7xl font-bold text-slate-700 dark:text-cyan-400"
+        />
+        <p className="mt-4 font-normal text-base text-muted-foreground max-w-lg text-center mx-auto">
+          将原始数据转化为可落地的商业智能。
+          专注于 Python、SQL 及高级数据分析领域。
         </p>
       </div>
     </div>

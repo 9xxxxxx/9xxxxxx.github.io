@@ -26,7 +26,7 @@ export const FloatingNav = ({
       {/* Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative group flex items-center justify-center w-12 h-12 rounded-full bg-white dark:bg-black border border-neutral-200 dark:border-white/[0.2] shadow-lg hover:scale-110 transition-all duration-200 z-50"
+        className="relative group flex items-center justify-center w-12 h-12 rounded-full bg-card border border-border shadow-lg hover:scale-110 transition-all duration-200 z-50"
       >
         <AnimatePresence mode="wait">
           {isOpen ? (
@@ -36,7 +36,7 @@ export const FloatingNav = ({
               animate={{ rotate: 0, opacity: 1 }}
               exit={{ rotate: 90, opacity: 0 }}
             >
-              <X className="w-5 h-5 text-neutral-600 dark:text-neutral-300" />
+              <X className="w-5 h-5 text-muted-foreground group-hover:text-primary" />
             </motion.div>
           ) : (
             <motion.div
@@ -45,7 +45,7 @@ export const FloatingNav = ({
               animate={{ rotate: 0, opacity: 1 }}
               exit={{ rotate: -90, opacity: 0 }}
             >
-              <Menu className="w-5 h-5 text-neutral-600 dark:text-neutral-300" />
+              <Menu className="w-5 h-5 text-muted-foreground group-hover:text-primary" />
             </motion.div>
           )}
         </AnimatePresence>
@@ -59,14 +59,14 @@ export const FloatingNav = ({
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: 20, scale: 0.8 }}
             transition={{ duration: 0.2 }}
-            className="absolute right-16 top-1/2 -translate-y-1/2 flex flex-col gap-3 p-3 bg-white/90 dark:bg-black/90 backdrop-blur-md border border-neutral-200 dark:border-white/[0.2] rounded-2xl shadow-xl min-w-[140px]"
+            className="absolute right-16 top-1/2 -translate-y-1/2 flex flex-col gap-3 p-3 bg-popover/90 backdrop-blur-md border border-border rounded-2xl shadow-xl min-w-[140px]"
           >
             {navItems.map((navItem, idx) => (
               <Link
                 key={`link=${idx}`}
                 href={navItem.link}
                 onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 px-4 py-2 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors"
+                className="flex items-center gap-3 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-primary hover:bg-accent rounded-lg transition-colors"
               >
                 <span className="w-5 h-5">{navItem.icon}</span>
                 <span>{navItem.name}</span>
