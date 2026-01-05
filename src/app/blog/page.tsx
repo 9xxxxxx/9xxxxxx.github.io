@@ -78,7 +78,12 @@ export default function BlogPage() {
             >
               {/* Card Header/Image */}
               <div className="h-52 w-full bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-purple-500/10 group-hover:scale-110 transition-transform duration-700" />
+                <img 
+                  src={post.image || "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=800"} 
+                  alt={post.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500" />
                 <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
                     <span key={tag} className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider bg-white/80 dark:bg-black/60 text-foreground rounded-full backdrop-blur-md border border-white/20">

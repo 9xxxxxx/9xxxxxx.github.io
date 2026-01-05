@@ -2,7 +2,7 @@
 title: "从 0 到 1 掌握维度建模：Star Schema 实战"
 description: "数据建模是数据仓库的灵魂。本文将带你深入理解维度建模的核心概念，并手把手教你如何设计高效的星型模型。"
 date: "2026-02-25"
-image: "/blog/data-modeling.jpg"
+image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800"
 tags: ["数据建模", "数据仓库", "维度建模"]
 ---
 

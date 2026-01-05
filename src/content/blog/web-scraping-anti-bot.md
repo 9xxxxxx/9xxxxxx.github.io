@@ -2,7 +2,7 @@
 title: "Python 爬虫实战：如何优雅地绕过反爬机制"
 description: "User-Agent 检测、IP 封禁、验证码... 面对网站层出不穷的防护手段，爬虫工程师该如何应对？"
 date: "2026-02-10"
-image: "/blog/web-scraping.jpg"
+image: "https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?q=80&w=800"
 tags: ["数据爬取", "Python", "网络安全"]
 ---
 

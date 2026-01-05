@@ -2,7 +2,7 @@
 title: "Pandas 数据清洗实战：那些相见恨晚的高级技巧"
 description: "告别低效的循环，掌握 Pandas 的 apply、transform 以及链式调用，让数据清洗效率提升 10 倍。"
 date: "2026-01-15"
-image: "/blog/pandas-cleaning.jpg"
+image: "https://images.unsplash.com/photo-1543286386-713bdd548da4?q=80&w=800"
 tags: ["数据清洗", "Python", "Pandas"]
 ---
 

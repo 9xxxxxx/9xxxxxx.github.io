@@ -2,7 +2,7 @@
 title: "数据可视化美学：如何让你的图表“会说话”"
 description: "好的可视化不仅仅是画图，更是设计和叙事。分享 5 个提升图表专业度的设计原则。"
 date: "2026-02-20"
-image: "/blog/visualization.jpg"
+image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800"
 tags: ["数据可视化", "设计", "Tableau"]
 ---
 
