@@ -34,7 +34,7 @@ export default function Home() {
         </section>
 
         {/* Section 5: Footer */}
-        <section className="snap-section h-auto min-h-[50vh] justify-end">
+        <section className="snap-section h-screen">
             <Footer />
         </section>
 
@@ -46,9 +46,10 @@ export default function Home() {
 
 function Footer() {
   return (
-    <footer className="w-full pt-20 pb-10 px-4" id="contact">
-      <div className="flex flex-col items-center">
-        <h1 className="heading lg:max-w-[45vw] text-center text-3xl font-bold text-foreground mb-5">
+    <footer className="w-full h-full flex flex-col px-4 relative" id="contact">
+      {/* 中间核心内容：垂直水平居中 */}
+      <div className="flex-grow flex flex-col items-center justify-center">
+        <h1 className="heading lg:max-w-[45vw] text-center text-3xl font-bold text-foreground mb-10">
           准备好让您的数据 <span className="text-primary">创造更大价值了吗？</span>
         </h1>
         <a href="mailto:huangqiannb@gmail.com">
@@ -60,9 +61,11 @@ function Footer() {
           </button>
         </a>
       </div>
-      <div className="flex mt-16 md:flex-row flex-col justify-between items-center text-muted-foreground text-sm">
-        <p className="md:text-base text-sm md:font-normal font-light">
-          版权所有 © 2026 garry-9xxxxxx
+
+      {/* 底部版权：固定在底部 20px */}
+      <div className="pb-[20px] flex justify-center items-center text-muted-foreground text-sm">
+        <p className="md:text-base text-sm font-light">
+          版权所有 © 2026 Garry-9xxxxxx
         </p>
       </div>
     </footer>
