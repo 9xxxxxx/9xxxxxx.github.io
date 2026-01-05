@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -17,108 +17,109 @@ export const RightNav = ({
   const [activeSection, setActiveSection] = useState("");
   const pathname = usePathname();
 
+  // 1. 解析锚点 ID (处理 #id 和 /#id)
+  const anchorIds = useMemo(() => {
+    return navItems
+      .filter(item => item.link.includes("#"))
+      .map(item => item.link.split("#")[1]);
+  }, [navItems]);
+
+  // 2. 滚动监听核心
   useEffect(() => {
-    // 只有在首页且没有 activeSection 时，默认 activeSection 为 "home"
-    if (pathname === "/" && !activeSection) {
-        setActiveSection("home");
-    }
-
+    // 只有在首页且处于主路径时才启用滚动观察
     if (pathname !== "/") {
-        setActiveSection(""); // 在子页面清除滚动状态，依靠 pathname 匹配
-        return;
+      setActiveSection(""); 
+      return;
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.4 } // 降低阈值，更容易触发
-    );
+    const observerOptions = {
+      root: null, // 默认使用 viewport
+      rootMargin: "-20% 0px -60% 0px", // 偏向上方的检测区域，适合 Snap Scroll
+      threshold: [0, 0.1, 0.5, 1.0], // 多阈值触发，增加稳定性
+    };
 
-    navItems.forEach((item) => {
-      if (item.link.startsWith("#")) {
-        const id = item.link.substring(1);
-        const element = document.getElementById(id);
-        if (element) observer.observe(element);
-      }
-    });
+    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.1) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
 
-    return () => observer.disconnect();
-  }, [navItems, pathname, activeSection]);
+    const observer = new IntersectionObserver(handleIntersect, observerOptions);
+
+    // 延迟执行观察，确保 DOM 已经渲染完毕
+    const timeoutId = setTimeout(() => {
+      anchorIds.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+          observer.observe(el);
+        }
+      });
+    }, 500);
+
+    return () => {
+      clearTimeout(timeoutId);
+      observer.disconnect();
+    };
+  }, [pathname, anchorIds]);
 
   return (
-    <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-4">
+    <nav className="fixed right-6 lg:right-10 top-1/2 -translate-y-1/2 z-[100] hidden md:flex flex-col gap-6">
       {navItems.map((item, idx) => {
-        const isAnchor = item.link.startsWith("#") || item.link.startsWith("/#");
-        const pureAnchor = item.link.includes("#") ? item.link.split("#")[1] : "";
+        const isAnchor = item.link.includes("#");
+        const pureAnchor = isAnchor ? item.link.split("#")[1] : "";
         
-        // 1. 计算跳转链接：如果在子页面点击锚点，需要跳回主页
-        const href = (isAnchor && pathname !== "/") ? `/${item.link.startsWith("/") ? "" : ""}${item.link}` : item.link;
-        
-        // 2. 核心高亮逻辑
-        let finalActive = false;
-
+        // 判定高亮状态
+        let isActive = false;
         if (pathname === "/") {
-            // 【主页模式】：优先依靠滚动监听 activeSection
-            if (pureAnchor) {
-                finalActive = activeSection === pureAnchor;
-            }
-            // 特殊处理：如果没有检测到 activeSection 且在页面最顶部，高亮第一个（首页）
-            if (!activeSection && idx === 0) finalActive = true;
+          // 首页：根据滚动 ID 或首屏兜底
+          isActive = (activeSection === pureAnchor) || (!activeSection && idx === 0 && pureAnchor === "home");
         } else {
-            // 【子页模式】：依靠路径前缀匹配
-            // 博客匹配：/blog/* 匹配 /blog
-            if (item.link === "/blog") {
-                finalActive = pathname.startsWith("/blog");
-            }
-            // 项目匹配：/projects/* 匹配 /#projects 或 /#projects
-            else if (item.link.includes("projects")) {
-                finalActive = pathname.startsWith("/projects");
-            }
-            // 首页匹配：子页面下，只有点击"首页"图标才可能（通常子页面不显示 active 状态给 home 除非是回到 home）
-            else if (item.name === "首页") {
-                finalActive = false; // 在子页面时，首页图标不保持常亮
-            }
+          // 子页：根据路径识别
+          if (item.link === "/blog") isActive = pathname.startsWith("/blog");
+          if (item.link.includes("projects")) isActive = pathname.startsWith("/projects");
         }
+
+        // 跨页链接转换
+        const href = (isAnchor && pathname !== "/") ? `/${item.link.replace(/^\//, "")}` : item.link;
 
         return (
           <Link
-            key={`link=${idx}`}
+            key={`nav-${idx}`}
             href={href}
-            className="relative group flex items-center justify-end gap-3 p-2"
+            className="flex items-center justify-end gap-4 group no-underline"
           >
             <span 
-                className={cn(
-                    "text-sm font-medium transition-all duration-300 pointer-events-none",
-                    finalActive ? "text-primary opacity-100 translate-x-0" : "text-muted-foreground opacity-70 group-hover:opacity-100 group-hover:translate-x-[-2px]"
-                )}
+              className={cn(
+                "text-[10px] font-bold uppercase tracking-[0.25em] transition-all duration-500",
+                isActive 
+                  ? "text-primary opacity-100 translate-x-0" 
+                  : "text-muted-foreground opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0"
+              )}
             >
               {item.name}
             </span>
 
             <div className={cn(
-                "relative flex items-center justify-center w-10 h-10 rounded-full border transition-all duration-300 backdrop-blur-sm",
-                finalActive 
-                    ? "bg-primary/10 border-primary text-primary shadow-[0_0_10px_rgba(34,211,238,0.3)] scale-110" 
-                    : "bg-card/50 border-border text-muted-foreground group-hover:border-primary/50 group-hover:text-foreground"
+              "relative flex items-center justify-center w-11 h-11 rounded-full border transition-all duration-500",
+              isActive 
+                ? "bg-primary border-primary text-primary-foreground shadow-[0_0_20px_rgba(34,211,238,0.4)] scale-110" 
+                : "bg-background/40 border-border text-muted-foreground group-hover:border-primary/50 group-hover:text-primary backdrop-blur-md"
             )}>
-                {item.icon}
-                
-                {finalActive && (
-                    <motion.div
-                        layoutId="activeNav"
-                        className="absolute inset-0 rounded-full bg-primary/20 blur-md -z-10"
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    />
-                )}
+              {item.icon}
+              
+              {isActive && (
+                <motion.div
+                  layoutId="navActiveIndicator"
+                  className="absolute inset-0 rounded-full bg-primary/20 blur-xl -z-10"
+                  transition={{ type: "spring", stiffness: 300, damping: 35 }}
+                />
+              )}
             </div>
           </Link>
         );
       })}
-    </div>
+    </nav>
   );
 };
