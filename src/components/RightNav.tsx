@@ -88,31 +88,33 @@ export const RightNav = ({
           <Link
             key={`nav-${idx}`}
             href={href}
-            className="flex items-center justify-end gap-4 group no-underline"
+            className="flex items-center justify-end gap-3 group no-underline p-2"
           >
+            {/* 文字标签：默认可见，悬浮/激活时更亮 */}
             <span 
               className={cn(
-                "text-[10px] font-bold uppercase tracking-[0.25em] transition-all duration-500",
+                "text-xs font-bold uppercase tracking-widest transition-all duration-300 pointer-events-none",
                 isActive 
                   ? "text-primary opacity-100 translate-x-0" 
-                  : "text-muted-foreground opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0"
+                  : "text-muted-foreground opacity-70 group-hover:opacity-100 group-hover:text-primary group-hover:translate-x-[-4px]"
               )}
             >
               {item.name}
             </span>
 
+            {/* 图标容器 */}
             <div className={cn(
-              "relative flex items-center justify-center w-11 h-11 rounded-full border transition-all duration-500",
+              "relative flex items-center justify-center w-10 h-10 rounded-full border transition-all duration-300 backdrop-blur-sm",
               isActive 
-                ? "bg-primary border-primary text-primary-foreground shadow-[0_0_20px_rgba(34,211,238,0.4)] scale-110" 
-                : "bg-background/40 border-border text-muted-foreground group-hover:border-primary/50 group-hover:text-primary backdrop-blur-md"
+                ? "bg-primary/10 border-primary text-primary shadow-[0_0_15px_rgba(34,211,238,0.3)] scale-110" 
+                : "bg-card/50 border-border text-muted-foreground group-hover:border-primary/50 group-hover:text-primary"
             )}>
               {item.icon}
               
               {isActive && (
                 <motion.div
                   layoutId="navActiveIndicator"
-                  className="absolute inset-0 rounded-full bg-primary/20 blur-xl -z-10"
+                  className="absolute inset-0 rounded-full bg-primary/20 blur-md -z-10"
                   transition={{ type: "spring", stiffness: 300, damping: 35 }}
                 />
               )}
