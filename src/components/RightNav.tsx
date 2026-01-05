@@ -17,11 +17,14 @@ export const RightNav = ({
   const [activeSection, setActiveSection] = useState("");
   const pathname = usePathname();
 
-  // 监听滚动以更新当前激活的 Section
   useEffect(() => {
-    // 如果不在首页，不需要滚动观察者（除非子页面也有内部锚点）
+    // 只有在首页且没有 activeSection 时，默认 activeSection 为 "home"
+    if (pathname === "/" && !activeSection) {
+        setActiveSection("home");
+    }
+
     if (pathname !== "/") {
-        setActiveSection("");
+        setActiveSection(""); // 在子页面清除滚动状态，依靠 pathname 匹配
         return;
     }
 
@@ -33,7 +36,7 @@ export const RightNav = ({
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.4 } // 降低阈值，更容易触发
     );
 
     navItems.forEach((item) => {
@@ -45,24 +48,26 @@ export const RightNav = ({
     });
 
     return () => observer.disconnect();
-  }, [navItems, pathname]);
+  }, [navItems, pathname, activeSection]);
 
   return (
     <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-4">
       {navItems.map((item, idx) => {
-        // 判断逻辑：
-        // 1. 如果是页面内锚点，判断 activeSection
-        // 2. 如果是独立路径（如 /blog），判断 pathname 是否匹配
         const isAnchor = item.link.startsWith("#");
         const href = isAnchor && pathname !== "/" ? `/${item.link}` : item.link;
         
-        const isActive = isAnchor 
-            ? activeSection === item.link.substring(1)
-            : pathname.startsWith(item.link) && item.link !== "/";
-        
-        // 特殊处理首页图标的高亮：如果没有 activeSection 且在首页，默认高亮第一个（首页）
-        const isFirstItem = idx === 0;
-        const finalActive = isActive || (isFirstItem && pathname === "/" && (!activeSection || activeSection === "home"));
+        let finalActive = false;
+
+        if (pathname === "/") {
+            // 在首页：根据 activeSection 判断，或者如果没有 Section 且是第一个
+            finalActive = isAnchor && activeSection === item.link.substring(1);
+        } else {
+            // 在子页面：根据 pathname 是否匹配 item.link 判断
+            // 注意：排除首页链接，否则首页链接会始终匹配
+            if (item.link !== "/" && !item.link.startsWith("#")) {
+                finalActive = pathname.startsWith(item.link);
+            }
+        }
 
         return (
           <Link
@@ -87,7 +92,7 @@ export const RightNav = ({
             )}>
                 {item.icon}
                 
-                {isActive && (
+                {finalActive && (
                     <motion.div
                         layoutId="activeNav"
                         className="absolute inset-0 rounded-full bg-primary/20 blur-md -z-10"

@@ -30,7 +30,7 @@ export const projectsData: Project[] = [
       "REST API 实时预测接口"
     ],
     githubLink: "https://github.com",
-    image: "/projects/churn.jpg" 
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800" 
   },
   {
     slug: "real-time-sales-dashboard",
@@ -51,7 +51,7 @@ export const projectsData: Project[] = [
       "移动端适配视图"
     ],
     githubLink: "https://github.com",
-    image: "/projects/dashboard.jpg"
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800"
   },
   {
     slug: "sentiment-analysis-engine",
@@ -72,7 +72,7 @@ export const projectsData: Project[] = [
       "关键词提取与聚类"
     ],
     githubLink: "https://github.com",
-    image: "/projects/nlp.jpg"
+    image: "https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?q=80&w=800"
   },
   {
     slug: "ecommerce-recommendation",
@@ -93,7 +93,7 @@ export const projectsData: Project[] = [
       "A/B 测试框架集成"
     ],
     githubLink: "https://github.com",
-    image: "/projects/recommendation.jpg"
+    image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=800"
   },
   {
     slug: "supply-chain-optimization",
@@ -114,7 +114,7 @@ export const projectsData: Project[] = [
       "成本敏感性分析"
     ],
     githubLink: "https://github.com",
-    image: "/projects/supply-chain.jpg"
+    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800"
   },
   {
     slug: "financial-forecasting",
@@ -135,6 +135,6 @@ export const projectsData: Project[] = [
       "置信区间评估"
     ],
     githubLink: "https://github.com",
-    image: "/projects/finance.jpg"
+    image: "https://images.unsplash.com/photo-1543286386-713bdd548da4?q=80&w=800"
   }
 ];
