@@ -10,44 +10,9 @@ import { ModeToggle } from "@/components/ThemeToggle";
 import { Home as HomeIcon, User, Briefcase, BookOpen, UserCircle2 } from "lucide-react";
 
 export default function Home() {
-  const navItems = [
-    {
-      name: "首页",
-      link: "#home",
-      icon: <HomeIcon className="h-4 w-4" />,
-    },
-    {
-      name: "关于",
-      link: "#about",
-      icon: <UserCircle2 className="h-4 w-4" />,
-    },
-    {
-      name: "技能",
-      link: "#skills",
-      icon: <User className="h-4 w-4" />,
-    },
-    {
-      name: "项目",
-      link: "#projects",
-      icon: <Briefcase className="h-4 w-4" />,
-    },
-    {
-      name: "博客",
-      link: "/blog",
-      icon: <BookOpen className="h-4 w-4" />,
-    },
-  ];
-
   return (
     <main className="relative bg-background flex flex-col overflow-y-auto h-screen w-full transition-colors duration-300 scroll-snap-y-mandatory scroll-smooth">
       <div className="w-full">
-        <SocialSidebar />
-        <RightNav navItems={navItems} />
-        
-        <div className="fixed top-5 right-5 z-[5000]">
-            <ModeToggle />
-        </div>
-
         {/* Section 1: Hero */}
         <section id="home" className="snap-section">
             <Hero />

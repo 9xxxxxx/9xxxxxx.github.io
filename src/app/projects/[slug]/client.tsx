@@ -7,17 +7,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 export default function ProjectPageClient({ project }: { project: Project }) {
-  const navItems = [
-    {
-      name: "返回首页",
-      link: "/",
-      icon: <HomeIcon className="h-4 w-4 text-neutral-500 dark:text-white" />,
-    },
-  ];
-
   return (
     <main className="min-h-screen bg-background text-foreground relative overflow-hidden pb-20">
-      <FloatingNav navItems={navItems} />
       
       {/* Hero Section */}
       <div className="h-[40vh] w-full relative flex items-center justify-center bg-slate-950/[0.9] antialiased bg-grid-white/[0.02]">

@@ -14,43 +14,8 @@ export const metadata = {
 export default function BlogPage() {
   const allBlogs = getAllPosts();
 
-  const navItems = [
-    {
-      name: "首页",
-      link: "/",
-      icon: <HomeIcon className="h-4 w-4" />,
-    },
-    {
-      name: "关于",
-      link: "/#about",
-      icon: <UserCircle2 className="h-4 w-4" />,
-    },
-    {
-      name: "技能",
-      link: "/#skills",
-      icon: <User className="h-4 w-4" />,
-    },
-    {
-      name: "项目",
-      link: "/#projects",
-      icon: <Briefcase className="h-4 w-4" />,
-    },
-    {
-      name: "博客",
-      link: "/blog",
-      icon: <BookOpen className="h-4 w-4" />,
-    },
-  ];
-
   return (
     <div className="min-h-screen bg-background text-foreground relative transition-colors duration-300">
-      <SocialSidebar />
-      <RightNav navItems={navItems} />
-      
-      <div className="fixed top-5 right-5 z-[5000]">
-          <ModeToggle />
-      </div>
-
       {/* Header Section */}
       <header className="relative py-24 px-6 text-center bg-slate-50 dark:bg-slate-900/50">
         <div className="max-w-3xl mx-auto">

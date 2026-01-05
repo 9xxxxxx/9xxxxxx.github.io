@@ -35,43 +35,8 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     notFound();
   }
 
-  const navItems = [
-    {
-      name: "首页",
-      link: "/",
-      icon: <Home className="h-4 w-4" />,
-    },
-    {
-      name: "关于",
-      link: "/#about",
-      icon: <UserCircle2 className="h-4 w-4" />,
-    },
-    {
-      name: "技能",
-      link: "/#skills",
-      icon: <User className="h-4 w-4" />,
-    },
-    {
-      name: "项目",
-      link: "/#projects",
-      icon: <Briefcase className="h-4 w-4" />,
-    },
-    {
-      name: "博客",
-      link: "/blog",
-      icon: <BookOpen className="h-4 w-4" />,
-    },
-  ];
-
   return (
     <div className="min-h-screen bg-background text-foreground relative transition-colors duration-300">
-      <SocialSidebar />
-      <RightNav navItems={navItems} />
-
-      <div className="fixed top-5 right-5 z-[5000]">
-          <ModeToggle />
-      </div>
-
       <main className="max-w-4xl mx-auto px-6 pt-32 pb-24">
         {/* Back Link */}
         <Link 
