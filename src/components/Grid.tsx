@@ -45,7 +45,7 @@ const ImageHeader = ({ src }: { src: string }) => (
 const items = [
   {
     title: "Python 数据分析",
-    description: "精通 Pandas, NumPy 和 Scikit-learn 数据处理。",
+    description: "精通 Pandas, polars 和 Scikit-learn 数据处理。",
     header: <ImageHeader src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=600&auto=format&fit=crop" />,
     icon: <Code className="h-4 w-4 text-primary" />,
   },
