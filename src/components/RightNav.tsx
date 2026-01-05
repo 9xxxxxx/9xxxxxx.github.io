@@ -53,19 +53,35 @@ export const RightNav = ({
   return (
     <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-4">
       {navItems.map((item, idx) => {
-        const isAnchor = item.link.startsWith("#");
-        const href = isAnchor && pathname !== "/" ? `/${item.link}` : item.link;
+        const isAnchor = item.link.startsWith("#") || item.link.startsWith("/#");
+        const pureAnchor = item.link.includes("#") ? item.link.split("#")[1] : "";
         
+        // 1. 计算跳转链接：如果在子页面点击锚点，需要跳回主页
+        const href = (isAnchor && pathname !== "/") ? `/${item.link.startsWith("/") ? "" : ""}${item.link}` : item.link;
+        
+        // 2. 核心高亮逻辑
         let finalActive = false;
 
         if (pathname === "/") {
-            // 在首页：根据 activeSection 判断，或者如果没有 Section 且是第一个
-            finalActive = isAnchor && activeSection === item.link.substring(1);
+            // 【主页模式】：优先依靠滚动监听 activeSection
+            if (pureAnchor) {
+                finalActive = activeSection === pureAnchor;
+            }
+            // 特殊处理：如果没有检测到 activeSection 且在页面最顶部，高亮第一个（首页）
+            if (!activeSection && idx === 0) finalActive = true;
         } else {
-            // 在子页面：根据 pathname 是否匹配 item.link 判断
-            // 注意：排除首页链接，否则首页链接会始终匹配
-            if (item.link !== "/" && !item.link.startsWith("#")) {
-                finalActive = pathname.startsWith(item.link);
+            // 【子页模式】：依靠路径前缀匹配
+            // 博客匹配：/blog/* 匹配 /blog
+            if (item.link === "/blog") {
+                finalActive = pathname.startsWith("/blog");
+            }
+            // 项目匹配：/projects/* 匹配 /#projects 或 /#projects
+            else if (item.link.includes("projects")) {
+                finalActive = pathname.startsWith("/projects");
+            }
+            // 首页匹配：子页面下，只有点击"首页"图标才可能（通常子页面不显示 active 状态给 home 除非是回到 home）
+            else if (item.name === "首页") {
+                finalActive = false; // 在子页面时，首页图标不保持常亮
             }
         }
 
