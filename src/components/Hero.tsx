@@ -54,7 +54,7 @@ export function Hero() {
         <div className="relative">
             {/* 底层：暗淡的文字 */}
             <h1 className="text-4xl md:text-7xl font-bold text-center text-slate-300/20 dark:text-slate-700/50">
-              数据驱动-洞见未来
+              数据驱动，洞见未来
             </h1>
 
             {/* 顶层：高亮的文字 */}
@@ -65,7 +65,7 @@ export function Hero() {
                 WebkitMaskImage: maskImage // 兼容性保障
               }}
             >
-              数据驱动-洞见未来
+              数据驱动，洞见未来
             </motion.h1>
         </div>
 
