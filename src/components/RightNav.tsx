@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 export const RightNav = ({
   navItems,
@@ -14,9 +15,16 @@ export const RightNav = ({
   }[];
 }) => {
   const [activeSection, setActiveSection] = useState("");
+  const pathname = usePathname();
 
   // 监听滚动以更新当前激活的 Section
   useEffect(() => {
+    // 如果不在首页，不需要滚动观察者（除非子页面也有内部锚点）
+    if (pathname !== "/") {
+        setActiveSection("");
+        return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -25,10 +33,9 @@ export const RightNav = ({
           }
         });
       },
-      { threshold: 0.5 } // 当 50% 可见时激活
+      { threshold: 0.5 }
     );
 
-    // 观察所有 Section
     navItems.forEach((item) => {
       if (item.link.startsWith("#")) {
         const id = item.link.substring(1);
@@ -38,40 +45,46 @@ export const RightNav = ({
     });
 
     return () => observer.disconnect();
-  }, [navItems]);
+  }, [navItems, pathname]);
 
   return (
     <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-4">
       {navItems.map((item, idx) => {
-        const isActive = activeSection === item.link.substring(1);
+        // 判断逻辑：
+        // 1. 如果是页面内锚点，判断 activeSection
+        // 2. 如果是独立路径（如 /blog），判断 pathname 是否匹配
+        const isAnchor = item.link.startsWith("#");
+        const isActive = isAnchor 
+            ? activeSection === item.link.substring(1)
+            : pathname.startsWith(item.link) && item.link !== "/";
         
+        // 特殊处理首页图标的高亮
+        const isHomeActive = item.link === "/" && pathname === "/" && activeSection === "home";
+        const finalActive = isActive || (item.link === "#home" && activeSection === "home") || isHomeActive;
+
         return (
           <Link
             key={`link=${idx}`}
             href={item.link}
             className="relative group flex items-center justify-end gap-3 p-2"
           >
-            {/* 文字标签 (悬浮或激活时显示，或者一直显示？用户要求"不要折叠"，建议一直显示更直观) */}
-            {/* 为了保持界面整洁，我们设计为：一直显示，但非激活状态稍微半透明 */}
             <span 
                 className={cn(
                     "text-sm font-medium transition-all duration-300 pointer-events-none",
-                    isActive ? "text-primary opacity-100 translate-x-0" : "text-muted-foreground opacity-70 group-hover:opacity-100 group-hover:translate-x-[-2px]"
+                    finalActive ? "text-primary opacity-100 translate-x-0" : "text-muted-foreground opacity-70 group-hover:opacity-100 group-hover:translate-x-[-2px]"
                 )}
             >
               {item.name}
             </span>
 
-            {/* 图标/指示点容器 */}
             <div className={cn(
                 "relative flex items-center justify-center w-10 h-10 rounded-full border transition-all duration-300 backdrop-blur-sm",
-                isActive 
+                finalActive 
                     ? "bg-primary/10 border-primary text-primary shadow-[0_0_10px_rgba(34,211,238,0.3)] scale-110" 
                     : "bg-card/50 border-border text-muted-foreground group-hover:border-primary/50 group-hover:text-foreground"
             )}>
                 {item.icon}
                 
-                {/* 激活状态下的光晕背景 */}
                 {isActive && (
                     <motion.div
                         layoutId="activeNav"
