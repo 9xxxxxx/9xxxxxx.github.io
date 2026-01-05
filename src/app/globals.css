@@ -110,6 +110,25 @@ body {
   color: var(--foreground);
 }
 
+/* 全屏滚动容器配置 */
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+/* 每个全屏 Section 的通用样式 */
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* 确保内容不会被 fixed header 遮挡，如有需要 */
+  position: relative;
+}
+
 .bg-grid-white {
   background-size: 40px 40px;
   background-image: linear-gradient(to right, rgba(200, 200, 200, 0.2) 1px, transparent 1px),

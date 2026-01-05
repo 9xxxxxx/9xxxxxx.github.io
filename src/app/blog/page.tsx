@@ -1,72 +1,119 @@
 import Link from "next/link";
 import { getAllPosts } from "@/lib/blog";
-import { FloatingNav } from "@/components/ui/floating-navbar";
-import { Home, User, Briefcase, BookOpen } from "lucide-react";
+import { formatDate } from "@/lib/utils";
+import { Home as HomeIcon, Search, Tag, User, Briefcase, BookOpen, UserCircle2 } from "lucide-react";
+import { RightNav } from "@/components/RightNav";
+import { SocialSidebar } from "@/components/SocialSidebar";
 
 export const metadata = {
-  title: "Blog | Data Analyst Portfolio",
-  description: "Thoughts on data science, python, and analytics.",
+  title: "技术博客 | Garry-9xxxxxx",
+  description: "分享数据科学、机器学习与可视化的实战经验。",
 };
 
-export default function BlogIndex() {
-  const posts = getAllPosts();
+export default function BlogPage() {
+  const allBlogs = getAllPosts();
 
   const navItems = [
-    { name: "Home", link: "/", icon: <Home className="h-4 w-4" /> },
-    { name: "Skills", link: "/#skills", icon: <User className="h-4 w-4" /> },
-    { name: "Projects", link: "/#projects", icon: <Briefcase className="h-4 w-4" /> },
-    { name: "Blog", link: "/blog", icon: <BookOpen className="h-4 w-4" /> },
+    {
+      name: "首页",
+      link: "/",
+      icon: <HomeIcon className="h-4 w-4" />,
+    },
+    {
+      name: "关于",
+      link: "/#about",
+      icon: <UserCircle2 className="h-4 w-4" />,
+    },
+    {
+      name: "技能",
+      link: "/#skills",
+      icon: <User className="h-4 w-4" />,
+    },
+    {
+      name: "项目",
+      link: "/#projects",
+      icon: <Briefcase className="h-4 w-4" />,
+    },
+    {
+      name: "博客",
+      link: "/blog",
+      icon: <BookOpen className="h-4 w-4" />,
+    },
   ];
 
   return (
-    <main className="min-h-screen bg-white dark:bg-black relative flex flex-col items-center mx-auto sm:px-10 px-5 pt-32 pb-20 transition-colors duration-300">
-      <FloatingNav navItems={navItems} />
-      
-      <div className="max-w-4xl w-full relative z-10">
-        <h1 className="text-4xl md:text-5xl font-bold text-center mb-12 text-neutral-800 dark:text-white">
-          Latest <span className="text-purple-500">Insights</span>
-        </h1>
+    <div className="min-h-screen bg-background text-foreground relative transition-colors duration-300">
+      <SocialSidebar />
+      <RightNav navItems={navItems} />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {posts.map((post) => (
+      {/* Header Section */}
+      <header className="relative py-24 px-6 text-center bg-slate-50 dark:bg-slate-900/50">
+        <div className="max-w-3xl mx-auto">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500">
+            技术专栏
+          </h1>
+          <p className="text-lg text-muted-foreground mb-8">
+            深入浅出，分享数据分析、建模、爬虫与可视化的全栈实战心得。
+          </p>
+          
+          <div className="relative max-w-md mx-auto">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            <input 
+              type="text" 
+              placeholder="搜索文章内容..." 
+              className="w-full pl-10 pr-4 py-3 rounded-full border border-border bg-card focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+            />
+          </div>
+        </div>
+      </header>
+
+      {/* Blog Feed Grid */}
+      <main className="max-w-7xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {allBlogs.map((post) => (
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="group relative block overflow-hidden rounded-2xl bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-white/[0.1] hover:border-purple-500/50 transition-colors"
+              className="group flex flex-col bg-card border border-border rounded-3xl overflow-hidden hover:shadow-2xl hover:border-primary/30 transition-all duration-500"
             >
-              {post.image && (
-                <div className="h-48 w-full overflow-hidden">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-              )}
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs font-medium px-2 py-1 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300">
-                        {post.tags[0] || "Article"}
+              {/* Card Header/Image */}
+              <div className="h-52 w-full bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-purple-500/10 group-hover:scale-110 transition-transform duration-700" />
+                <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+                  {post.tags.map((tag) => (
+                    <span key={tag} className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider bg-white/80 dark:bg-black/60 text-foreground rounded-full backdrop-blur-md border border-white/20">
+                      {tag}
                     </span>
-                    <span className="text-xs text-neutral-500 dark:text-neutral-400">
-                        {post.date}
-                    </span>
+                  ))}
                 </div>
-                <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-100 mb-2 group-hover:text-purple-500 transition-colors">
+              </div>
+
+              {/* Card Content */}
+              <div className="p-8 flex flex-col flex-grow">
+                <time className="text-xs text-muted-foreground font-medium mb-3">
+                  {formatDate(post.date)}
+                </time>
+                <h2 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors leading-tight">
                   {post.title}
                 </h2>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2">
+                <p className="text-sm text-muted-foreground line-clamp-3 mb-6 leading-relaxed">
                   {post.description}
                 </p>
+                <div className="mt-auto flex items-center text-primary font-bold text-sm">
+                  阅读全文 <span className="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                </div>
               </div>
             </Link>
           ))}
         </div>
-        
-        {posts.length === 0 && (
-            <p className="text-center text-neutral-500 mt-20">No posts found yet. Check back soon!</p>
-        )}
-      </div>
-    </main>
+      </main>
+
+      {/* Simple Footer for Blog */}
+      <footer className="py-12 border-t border-border">
+        <div className="max-w-7xl mx-auto px-6 text-center text-muted-foreground text-sm">
+          © 2026 Garry-9xxxxxx. 保留所有权利。
+        </div>
+      </footer>
+    </div>
   );
 }

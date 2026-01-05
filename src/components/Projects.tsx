@@ -6,7 +6,7 @@ import { projectsData } from "@/lib/projects-data";
 
 export function Projects() {
   return (
-    <section id="projects" className="max-w-7xl mx-auto px-8 py-20">
+    <section id="projects" className="h-full min-h-screen flex flex-col justify-center max-w-7xl mx-auto px-8">
       <h2 className="text-3xl font-bold text-center mb-10 text-foreground">
         精选项目
       </h2>

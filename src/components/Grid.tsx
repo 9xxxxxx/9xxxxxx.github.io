@@ -11,7 +11,7 @@ import {
 
 export function Grid() {
   return (
-    <section id="skills" className="py-20 relative z-20 px-4 md:px-0">
+    <section id="skills" className="h-full min-h-screen flex flex-col justify-center relative z-20 px-4 md:px-0">
       <h2 className="text-3xl font-bold text-center mb-10 text-foreground">
         技术栈与专业技能
       </h2>

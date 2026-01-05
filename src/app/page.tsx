@@ -1,51 +1,78 @@
 "use client";
-import { FloatingNav } from "@/components/ui/floating-navbar";
+import { RightNav } from "@/components/RightNav";
 import { Hero } from "@/components/Hero";
+import { About } from "@/components/About";
 import { Grid } from "@/components/Grid";
 import { Projects } from "@/components/Projects";
 import { SocialSidebar } from "@/components/SocialSidebar";
 import { BackToTop } from "@/components/BackToTop";
 import { ModeToggle } from "@/components/ThemeToggle";
-import { Home as HomeIcon, User, Briefcase, BookOpen } from "lucide-react";
+import { Home as HomeIcon, User, Briefcase, BookOpen, UserCircle2 } from "lucide-react";
 
 export default function Home() {
   const navItems = [
     {
       name: "首页",
-      link: "/",
-      icon: <HomeIcon className="h-4 w-4 text-neutral-500 dark:text-white" />,
+      link: "#home",
+      icon: <HomeIcon className="h-4 w-4" />,
+    },
+    {
+      name: "关于",
+      link: "#about",
+      icon: <UserCircle2 className="h-4 w-4" />,
     },
     {
       name: "技能",
       link: "#skills",
-      icon: <User className="h-4 w-4 text-neutral-500 dark:text-white" />,
+      icon: <User className="h-4 w-4" />,
     },
     {
       name: "项目",
       link: "#projects",
-      icon: <Briefcase className="h-4 w-4 text-neutral-500 dark:text-white" />,
+      icon: <Briefcase className="h-4 w-4" />,
     },
     {
       name: "博客",
       link: "/blog",
-      icon: <BookOpen className="h-4 w-4 text-neutral-500 dark:text-white" />,
+      icon: <BookOpen className="h-4 w-4" />,
     },
   ];
 
   return (
-    <main className="relative bg-background flex flex-col overflow-hidden min-h-screen transition-colors duration-300">
+    <main className="relative bg-background flex flex-col overflow-y-auto h-screen w-full transition-colors duration-300 scroll-snap-y-mandatory scroll-smooth">
       <div className="w-full">
         <SocialSidebar />
+        <RightNav navItems={navItems} />
         
         <div className="fixed top-5 right-5 z-[5000]">
             <ModeToggle />
         </div>
 
-        <Hero />
-        <FloatingNav navItems={navItems} />
-        <Grid />
-        <Projects />
-        <Footer />
+        {/* Section 1: Hero */}
+        <section id="home" className="snap-section">
+            <Hero />
+        </section>
+        
+        {/* Section 2: About */}
+        <section id="about" className="snap-section bg-slate-50 dark:bg-slate-900/50">
+            <About />
+        </section>
+
+        {/* Section 3: Skills */}
+        <section id="skills" className="snap-section">
+            <Grid />
+        </section>
+
+        {/* Section 4: Projects */}
+        <section id="projects" className="snap-section">
+            <Projects />
+        </section>
+
+        {/* Section 5: Footer */}
+        <section className="snap-section h-auto min-h-[50vh] justify-end">
+            <Footer />
+        </section>
+
         <BackToTop />
       </div>
     </main>

@@ -20,12 +20,10 @@ export function Hero() {
   }, []);
 
   // 动态生成遮罩样式
-  // 300px circle: 加大光斑，覆盖更广
-  // black 40%, transparent 100%: 增加羽化范围，边缘不再生硬
   const maskImage = useMotionTemplate`radial-gradient(300px circle at ${maskPosition}% 50%, black 40%, transparent 100%)`;
 
   return (
-    <div className="h-[40rem] w-full flex md:items-center md:justify-center bg-background dark:bg-slate-950/[0.9] antialiased bg-grid-white/[0.02] relative overflow-hidden">
+    <div className="h-full min-h-screen w-full flex md:items-center md:justify-center bg-background dark:bg-slate-950/[0.9] antialiased bg-grid-white/[0.02] relative overflow-hidden">
       
       {/* 1. 氛围背景光 */}
       <Spotlight
@@ -48,32 +46,54 @@ export function Hero() {
       </div>
 
       {/* Content */}
-      <div className="p-4 max-w-7xl mx-auto relative z-10 w-full pt-20 md:pt-0 flex flex-col items-center">
+      <div className="p-4 max-w-7xl mx-auto relative z-10 w-full pt-20 md:pt-0 flex flex-col items-center justify-center min-h-[calc(100vh-100px)]">
         
         {/* --- 核心特效：光照变色标语 --- */}
-        <div className="relative">
+        <div className="relative mb-8">
             {/* 底层：暗淡的文字 */}
-            <h1 className="text-4xl md:text-7xl font-bold text-center text-slate-300/20 dark:text-slate-700/50">
-              数据驱动，洞见未来
+            <h1 className="text-4xl md:text-7xl font-bold text-center text-slate-300/20 dark:text-slate-700/50 tracking-tight">
+              数据驱动，洞见未来。
             </h1>
 
             {/* 顶层：高亮的文字 */}
             <motion.h1
-              className="absolute inset-0 text-4xl md:text-7xl font-bold text-center text-cyan-500 dark:text-cyan-400 drop-shadow-[0_0_15px_rgba(34,211,238,0.8)]"
+              className="absolute inset-0 text-4xl md:text-7xl font-bold text-center text-cyan-500 dark:text-cyan-400 drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] tracking-tight"
               style={{ 
                 maskImage,
-                WebkitMaskImage: maskImage // 兼容性保障
+                WebkitMaskImage: maskImage
               }}
             >
-              数据驱动，洞见未来
+              数据驱动，洞见未来。
             </motion.h1>
         </div>
 
-        <p className="mt-8 font-normal text-base text-muted-foreground max-w-lg text-center mx-auto">
-          将原始数据转化为可落地的商业智能。
+        <p className="font-normal text-lg md:text-xl text-muted-foreground max-w-2xl text-center mx-auto mb-12 leading-relaxed">
+          将复杂的原始数据转化为<span className="text-foreground font-medium">可落地的商业智能</span>。<br/>
           专注于 Python、SQL 及高级数据分析领域。
         </p>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4">
+            <a href="#projects" className="px-8 py-3 rounded-full bg-primary text-primary-foreground font-medium hover:bg-cyan-600 transition-colors shadow-lg shadow-cyan-500/20">
+                查看我的作品
+            </a>
+            <a href="#contact" className="px-8 py-3 rounded-full bg-card border border-border text-foreground font-medium hover:bg-accent transition-colors">
+                联系我
+            </a>
+        </div>
+
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div 
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1, duration: 1 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      >
+        <span className="text-xs text-muted-foreground uppercase tracking-widest">Scroll</span>
+        <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-cyan-500 to-transparent animate-pulse"></div>
+      </motion.div>
     </div>
   );
 }

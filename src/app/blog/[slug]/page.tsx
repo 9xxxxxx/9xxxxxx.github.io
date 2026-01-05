@@ -1,8 +1,11 @@
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
-import { FloatingNav } from "@/components/ui/floating-navbar";
-import { Home, User, Briefcase, BookOpen, ArrowLeft } from "lucide-react";
+import { RightNav } from "@/components/RightNav";
+import { SocialSidebar } from "@/components/SocialSidebar";
+import { Home, User, Briefcase, BookOpen, ArrowLeft, UserCircle2 } from "lucide-react";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import { notFound } from "next/navigation";
+import { formatDate } from "@/lib/utils";
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
@@ -15,10 +18,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) {
-    return { title: "Post Not Found" };
+    return { title: "文章未找到" };
   }
   return {
-    title: `${post.title} | Data Analyst Blog`,
+    title: `${post.title} | Garry-9xxxxxx 博客`,
     description: post.description,
   };
 }
@@ -28,68 +31,93 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   const post = getPostBySlug(slug);
 
   if (!post) {
-    return (
-        <div className="min-h-screen flex items-center justify-center bg-white dark:bg-black text-black dark:text-white">
-            <h1 className="text-2xl">Post not found</h1>
-        </div>
-    );
+    notFound();
   }
 
   const navItems = [
-    { name: "Home", link: "/", icon: <Home className="h-4 w-4" /> },
-    { name: "Skills", link: "/#skills", icon: <User className="h-4 w-4" /> },
-    { name: "Projects", link: "/#projects", icon: <Briefcase className="h-4 w-4" /> },
-    { name: "Blog", link: "/blog", icon: <BookOpen className="h-4 w-4" /> },
+    {
+      name: "首页",
+      link: "/",
+      icon: <Home className="h-4 w-4" />,
+    },
+    {
+      name: "关于",
+      link: "/#about",
+      icon: <UserCircle2 className="h-4 w-4" />,
+    },
+    {
+      name: "技能",
+      link: "/#skills",
+      icon: <User className="h-4 w-4" />,
+    },
+    {
+      name: "项目",
+      link: "/#projects",
+      icon: <Briefcase className="h-4 w-4" />,
+    },
+    {
+      name: "博客",
+      link: "/blog",
+      icon: <BookOpen className="h-4 w-4" />,
+    },
   ];
 
   return (
-    <main className="min-h-screen bg-white dark:bg-black relative flex flex-col items-center mx-auto transition-colors duration-300">
-      <FloatingNav navItems={navItems} />
-      
-      {/* Header Image */}
-      {post.image && (
-          <div className="w-full h-[40vh] relative overflow-hidden">
-              <div className="absolute inset-0 bg-black/40 z-10" />
-              <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
-              <div className="absolute bottom-0 left-0 w-full p-8 z-20 max-w-4xl mx-auto right-0">
-                  <Link href="/blog" className="inline-flex items-center text-white/80 hover:text-white mb-4 transition-colors">
-                    <ArrowLeft className="w-4 h-4 mr-2" /> Back to Blog
-                  </Link>
-                  <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">{post.title}</h1>
-                  <div className="flex items-center text-white/80 text-sm gap-4">
-                      <span>{post.date}</span>
-                      <span>•</span>
-                      <div className="flex gap-2">
-                        {post.tags.map(tag => (
-                            <span key={tag} className="px-2 py-0.5 rounded-full bg-white/20 text-white text-xs">{tag}</span>
-                        ))}
-                      </div>
-                  </div>
-              </div>
-          </div>
-      )}
+    <div className="min-h-screen bg-background text-foreground relative transition-colors duration-300">
+      <SocialSidebar />
+      <RightNav navItems={navItems} />
 
-      {/* Content */}
-      <article className="max-w-3xl w-full px-5 py-12 prose prose-lg dark:prose-invert prose-purple prose-headings:font-bold prose-headings:text-neutral-800 dark:prose-headings:text-neutral-100 prose-p:text-neutral-600 dark:prose-p:text-neutral-300 prose-code:text-purple-500 dark:prose-code:text-purple-400 prose-pre:bg-neutral-100 dark:prose-pre:bg-neutral-900 prose-pre:border dark:prose-pre:border-neutral-800">
-        {!post.image && (
-            // If no image, show title here
-            <div className="mb-10 border-b border-neutral-200 dark:border-neutral-800 pb-8">
-                 <Link href="/blog" className="inline-flex items-center text-neutral-500 hover:text-black dark:hover:text-white mb-6 transition-colors">
-                    <ArrowLeft className="w-4 h-4 mr-2" /> Back to Blog
-                  </Link>
-                <h1 className="text-4xl font-bold mb-4 text-neutral-900 dark:text-white">{post.title}</h1>
-                <div className="text-neutral-500 text-sm">{post.date}</div>
+      <main className="max-w-4xl mx-auto px-6 pt-32 pb-24">
+        {/* Back Link */}
+        <Link 
+          href="/blog" 
+          className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-12 transition-colors group"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" /> 返回博客列表
+        </Link>
+
+        {/* Article Header */}
+        <header className="mb-16">
+          <div className="flex flex-wrap gap-2 mb-6">
+            {post.tags.map((tag) => (
+              <span key={tag} className="px-3 py-1 text-xs font-bold bg-primary/10 text-primary rounded-full">
+                {tag}
+              </span>
+            ))}
+          </div>
+          <h1 className="text-4xl md:text-6xl font-bold mb-8 leading-tight tracking-tight">
+            {post.title}
+          </h1>
+          <div className="flex items-center gap-4 text-muted-foreground">
+            <div className="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800" />
+            <div>
+              <p className="text-sm font-bold text-foreground">Garry-9xxxxxx</p>
+              <p className="text-xs">{formatDate(post.date)} • 5 min read</p>
             </div>
-        )}
-        <ReactMarkdown>{post.content}</ReactMarkdown>
-      </article>
-
-      {/* Footer simple version for blog */}
-      <footer className="w-full py-10 border-t border-neutral-200 dark:border-neutral-800 mt-auto">
-          <div className="text-center text-neutral-500 text-sm">
-            Copyright © 2024 Data Analyst
           </div>
-      </footer>
-    </main>
+        </header>
+
+        {/* Article Content */}
+        <article className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary prose-img:rounded-3xl prose-pre:rounded-2xl prose-pre:bg-slate-900 prose-pre:border prose-pre:border-border">
+          <ReactMarkdown>{post.content}</ReactMarkdown>
+        </article>
+
+        {/* Article Footer */}
+        <footer className="mt-20 pt-10 border-t border-border">
+          <div className="flex flex-col items-center text-center">
+            <h3 className="text-xl font-bold mb-4">感谢阅读</h3>
+            <p className="text-muted-foreground mb-8 max-w-md">
+              如果你对本文有任何疑问或想深入探讨，欢迎通过邮件或社交媒体与我联系。
+            </p>
+            <Link 
+              href="mailto:huangqiannb@gmail.com"
+              className="px-8 py-3 rounded-full bg-foreground text-background font-bold hover:opacity-90 transition-opacity"
+            >
+              联系作者
+            </Link>
+          </div>
+        </footer>
+      </main>
+    </div>
   );
 }
