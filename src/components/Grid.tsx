@@ -57,7 +57,7 @@ const items = [
   },
   {
     title: "数据可视化",
-    description: "使用 Tableau, PowerBI 和 D3.js 讲述数据故事。",
+    description: "使用 Tableau, PowerBI 和 plotly 讲述数据故事。",
     header: <ImageHeader src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop" />,
     icon: <BarChart className="h-4 w-4 text-primary" />,
   },
@@ -69,7 +69,7 @@ const items = [
   },
   {
     title: "网络爬虫",
-    description: "使用 Selenium 和 BeautifulSoup 进行自动化数据采集。",
+    description: "使用 Playwright、DrissionPage、 Selenium和 BeautifulSoup 进行自动化数据采集。",
     header: <ImageHeader src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=600&auto=format&fit=crop" />,
     icon: <Globe className="h-4 w-4 text-primary" />,
   },
